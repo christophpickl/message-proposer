@@ -1,0 +1,47 @@
+<idea-plugin version="2">
+  <id>com.gmail.pickl.christoph.messageproposer</id>
+  <name>Message Proposer</name>
+  <version>1.0</version>
+  <vendor email="christoph.pickl@gmail.com" url="https://github.com/christophpickl/message-proposer">Christoph Pickl</vendor>
+
+  <description><![CDATA[
+      IntelliJ plugin to propose a commit message prefix based on assigned issues.<br>
+      Right now only <em>JIRA</em> is supported.
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="141.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!--
+    <action id="MessageProposer.foobar" class="com.gmail.pickl.christoph.messageproposer.FoobarAction" text="FoobarText"
+            description="Just a foobar showcase.">
+      <add-to-group group-id="MainMenu" anchor="after" relative-to-action="WindowMenu"/>
+    </action>
+    -->
+    <group id="Myplugin.SampleMenu" text="_Sample Menu" description="Sample menu">
+    <add-to-group group-id="MainMenu" anchor="last"  />
+       <action id="MessageProposer.foobar" class="com.gmail.pickl.christoph.messageproposer.FoobarAction"
+               text="Foobar _Text" description="A test menu item" />
+       <!--<action id="Myplugin.Dialogs" class="Mypackage.MyShowDialog" text="Show _Dialog" description="A test menu item" />-->
+  </group>
+
+  </actions>
+
+</idea-plugin>
