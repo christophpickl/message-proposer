@@ -15,6 +15,7 @@ import java.util.List;
 
 public class MediatorService {
 
+    public static final int MAX_TASKS = 20;
     private EditorTextField commitField;
 
     private List<Task> data;
@@ -39,15 +40,15 @@ public class MediatorService {
         repo.setLoginAnonymously(true);
 //        repo.setUsername("");
 //        repo.setPassword("");
-
+        System.out.println("Requesting JIRA!");
         JiraRestApi2 rest = new JiraRestApi2(repo);
-        String jql = "project = DEMO AND assignee in (EMPTY) ORDER BY id ASC";
+//        String jql = "project = DEMO AND assignee in (EMPTY) ORDER BY id ASC";
+        String jql = "project = DEMO AND reporter in (currentUser()) ORDER BY id ASC";
         try {
-//            data = rest.findTasks(jql, 20);
-            data = Arrays.asList(new GenericTask("id", "sum", null));
+//            data = Arrays.asList(new GenericTask("id", "sum", null));
+            data = rest.findTasks(jql, MAX_TASKS);
         } catch (Exception e) {
-            e.printStackTrace();
-            return;
+            throw new RuntimeException("Ups :)", e);
         }
     }
 
