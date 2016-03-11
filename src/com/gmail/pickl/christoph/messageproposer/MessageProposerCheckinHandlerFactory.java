@@ -57,7 +57,8 @@ public class MessageProposerCheckinHandlerFactory extends CheckinHandlerFactory 
 
         private void resetTaskList() {
             // VcsBundle.message("checkbox.checkin.options.optimize.imports")
-            taskList.removeAll();
+            taskList.removeAllItems();
+
             taskList.addItem(OPT_SELECT_TASK);
             for (Task task : ServiceManager.getService(MediatorService.class).getData()) {
                 taskList.addItem(task);
