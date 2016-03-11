@@ -10,6 +10,7 @@ import com.intellij.openapi.vcs.changes.CommitContext;
 import com.intellij.openapi.vcs.checkin.CheckinHandler;
 import com.intellij.openapi.vcs.checkin.CheckinHandlerFactory;
 import com.intellij.openapi.vcs.ui.RefreshableOnComponent;
+import com.intellij.tasks.Task;
 import com.intellij.ui.NonFocusableCheckBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -50,16 +51,16 @@ public class MessageProposerCheckinHandlerFactory extends CheckinHandlerFactory 
             resetTaskList();
         }
 
-        private void onSelectTask(String taskId) {
-            ServiceManager.getService(MediatorService.class).taskSelected(taskId);
+        private void onSelectTask(Task task) {
+            ServiceManager.getService(MediatorService.class).taskSelected(task);
         }
 
         private void resetTaskList() {
             // VcsBundle.message("checkbox.checkin.options.optimize.imports")
             taskList.removeAll();
             taskList.addItem(OPT_SELECT_TASK);
-            for (String taskId : ServiceManager.getService(MediatorService.class).getData()) {
-                taskList.addItem(taskId);
+            for (Task task : ServiceManager.getService(MediatorService.class).getData()) {
+                taskList.addItem(task);
             }
             taskList.addItem(OPT_REFRESH);
             taskList.setSelectedIndex(0);
@@ -74,17 +75,21 @@ public class MessageProposerCheckinHandlerFactory extends CheckinHandlerFactory 
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     LOG.debug("action Performed on TaskList combo box");
-                    String taskId = (String) taskList.getSelectedItem();
-                    System.out.println("taskList.getSelectedItem()==> " + taskId);
-
-                    if (taskId.equals(OPT_SELECT_TASK)) {
-                        return; // do nothing
+                    Object selected = taskList.getSelectedItem();
+                    if (selected instanceof String) {
+                        String selectedString = (String) selected;
+                        if (selectedString.equals(OPT_SELECT_TASK)) {
+                            // do nothing
+                        } else if (selectedString.equals(OPT_REFRESH)) {
+                            onRefresh();
+                        } else {
+                            throw new RuntimeException("Unhandled string option: " + selectedString);
+                        }
+                    } else if (selected instanceof Task) {
+                        onSelectTask((Task) selected);
+                    } else {
+                        throw new RuntimeException("Unhandled option: " + selected);
                     }
-                    if (taskId.equals(OPT_REFRESH)) {
-                        onRefresh();
-                        return;
-                    }
-                    onSelectTask(taskId);
                 }
             });
 

@@ -3,7 +3,7 @@
 
 
 
-
+This REST API version is used in JIRA 5.1.8 and above (including JIRA 6.x.x).
 
 
 
