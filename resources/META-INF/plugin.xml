@@ -4,10 +4,6 @@
   <version>1.0</version>
   <vendor email="christoph.pickl@gmail.com" url="https://github.com/christophpickl/message-proposer">Christoph Pickl</vendor>
 
-    <!--
-    CommitChangeListDialog.CommitMessage myCommitMessageArea
-
-    -->
 
   <description><![CDATA[
       IntelliJ plugin to propose a commit message prefix based on assigned issues.<br>
@@ -15,44 +11,30 @@
     ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+      None yet.
     ]]>
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
   <idea-version since-build="141.0"/>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-       on how to target different products -->
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html on how to target different products -->
   <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
   -->
 
     <!-- see: http://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_extensions_and_extension_points.html -->
   <extensions defaultExtensionNs="com.intellij">
-        <!--
-         <extensionPoint name="checkinHandlerFactory"
-                    interface="com.intellij.openapi.vcs.checkin.CheckinHandlerFactory"
-                    area="IDEA_PROJECT"/>
-                    -->
+
       <checkinHandlerFactory implementation="com.gmail.pickl.christoph.messageproposer.MessageProposerCheckinHandlerFactory"/>
-        <!--<changesViewContent-->
+      <editChangelistSupport implementation="com.gmail.pickl.christoph.messageproposer.MessageProposerEditChangelistSupport" />
+
+      <applicationService serviceInterface="com.gmail.pickl.christoph.messageproposer.MediatorService"
+                          serviceImplementation="com.gmail.pickl.christoph.messageproposer.MediatorService" />
+
   </extensions>
 
   <actions>
-    <!--
-    <action id="MessageProposer.foobar" class="com.gmail.pickl.christoph.messageproposer.FoobarAction" text="FoobarText"
-            description="Just a foobar showcase.">
-      <add-to-group group-id="MainMenu" anchor="after" relative-to-action="WindowMenu"/>
-    </action>
-    -->
-    <group id="Myplugin.SampleMenu" text="_Sample Menu" description="Sample menu">
-    <add-to-group group-id="MainMenu" anchor="last"  />
-       <action id="MessageProposer.foobar" class="com.gmail.pickl.christoph.messageproposer.FoobarAction"
-               text="Foobar _Text" description="A test menu item" />
-  </group>
-
   </actions>
 
 </idea-plugin>

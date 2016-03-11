@@ -1,5 +1,6 @@
 package com.gmail.pickl.christoph.messageproposer;
 
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
@@ -41,31 +42,33 @@ public class MessageProposerCheckinHandlerFactory extends CheckinHandlerFactory 
             myPanel = panel;
         }
 
-        private java.util.List<String> loadProposedTaskIds() {
-            return Arrays.asList("PRESTO-1337", "REL-42");
-        }
-
         private static final String OPT_SELECT_TASK = "-Select Task ID-";
         private static final String OPT_REFRESH = "-Refresh-";
 
         private void onRefresh() {
-            System.out.println("onRefresh()");
+            ServiceManager.getService(MediatorService.class).reloadData();
+            resetTaskList();
         }
 
         private void onSelectTask(String taskId) {
-            System.out.println("onSelectTask(taskId='" + taskId + "')");
+            ServiceManager.getService(MediatorService.class).taskSelected(taskId);
+        }
+
+        private void resetTaskList() {
+            // VcsBundle.message("checkbox.checkin.options.optimize.imports")
+            taskList.removeAll();
+            taskList.addItem(OPT_SELECT_TASK);
+            for (String taskId : ServiceManager.getService(MediatorService.class).getData()) {
+                taskList.addItem(taskId);
+            }
+            taskList.addItem(OPT_REFRESH);
+            taskList.setSelectedIndex(0);
         }
 
         @Override
         @Nullable
         public RefreshableOnComponent getBeforeCheckinConfigurationPanel() {
-            // VcsBundle.message("checkbox.checkin.options.optimize.imports")
-
-            taskList.addItem(OPT_SELECT_TASK);
-            for (String taskId : loadProposedTaskIds()) {
-                taskList.addItem(taskId);
-            }
-            taskList.addItem(OPT_REFRESH);
+            resetTaskList();
 
             taskList.addActionListener(new ActionListener() {
                 @Override
@@ -118,9 +121,4 @@ public class MessageProposerCheckinHandlerFactory extends CheckinHandlerFactory 
 
     }
 
-
-    /*
-Please try to define a CheckinHandler with getBeforeCheckinConfigurationPanel or getAfterCheckinConfigurationPanel.
-You may also override CheckinEnvironment#createAdditionalOptionsPanel, but it would require you to implement your own CheckinEnvironment.
-     */
 }
