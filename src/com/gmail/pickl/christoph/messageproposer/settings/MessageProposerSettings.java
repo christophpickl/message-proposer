@@ -19,9 +19,7 @@ public class MessageProposerSettings implements PersistentStateComponent<Message
     private State state = new State();
 
     public static State getInstance() {
-        MessageProposerSettings instance = ServiceManager.getService(MessageProposerSettings.class);
-        if (instance == null) throw new IllegalStateException("Could not look up service: " + MessageProposerSettings.class.getSimpleName());
-        return instance.state;
+        return ServiceManager.getService(MessageProposerSettings.class).state;
     }
 
     @Nullable
@@ -32,12 +30,29 @@ public class MessageProposerSettings implements PersistentStateComponent<Message
 
     @Override
     public void loadState(State state) {
-        LOG.debug("loadState: ", state);
         this.state = state;
     }
 
     public static class State {
+        public static final int DEFAULT_MAX_TASKS = 20;
+        public static final String DEFAULT_JQL = "assignee in (currentUser()) ORDER BY id ASC";
+
         public String jiraUrl;
+        public String username;
+        public String password;
+        public int maxTasks = DEFAULT_MAX_TASKS;
+        public String customJql = DEFAULT_JQL;
+
+        @Override
+        public String toString() {
+            return "State{" +
+                    "jiraUrl='" + jiraUrl + '\'' +
+                    ", username='" + username + '\'' +
+                    ", password='" + password + '\'' +
+                    ", maxTasks='" + maxTasks + '\'' +
+                    ", customJql='" + customJql + '\'' +
+                    '}';
+        }
     }
 
 }

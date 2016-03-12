@@ -21,6 +21,7 @@ public class MessageProposerEditChangelistSupport implements EditChangelistSuppo
     @Override
     public void installSearch(EditorTextField textField, EditorTextField comment) {
         // both parameters reference to the same field i guess...
+        System.out.println("MessageProposerEditChangelistSupport: installSearch()");
         MediatorService service = ServiceManager.getService(MediatorService.class);
         service.registerCommitMessageField(textField);
     }
@@ -37,6 +38,6 @@ public class MessageProposerEditChangelistSupport implements EditChangelistSuppo
 
     @Override
     public void changelistCreated(LocalChangeList list) {
-        System.out.println("#changelistCreated() ... list.getComment(): " + list.getComment());
+        System.out.println("MessageProposerEditChangelistSupport: changelistCreated() ... list.getComment(): " + list.getComment());
     }
 }

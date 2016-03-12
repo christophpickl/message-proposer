@@ -32,11 +32,13 @@ public class MessageProposerCheckinHandlerFactory extends CheckinHandlerFactory 
 
     public static class MessageProposerCheckinHandler extends CheckinHandler {
 
-        private static final Logger LOG = Logger.getInstance("#com.gmail.pickl.christoph.messageproposer.MessageProposerCheckinHandler");
+        private static final Logger LOG = Logger.getInstance(MessageProposerCheckinHandler.class);
+
+        private static final String OPT_SELECT_TASK = "-Select Task ID-";
+        private static final String OPT_REFRESH = "-Refresh-";
 
         private final Project myProject;
         private final CheckinProjectPanel myPanel;
-
         private final ComboBox taskList = new ComboBox();
 
         public MessageProposerCheckinHandler(Project project, CheckinProjectPanel panel) {
@@ -44,8 +46,6 @@ public class MessageProposerCheckinHandlerFactory extends CheckinHandlerFactory 
             myPanel = panel;
         }
 
-        private static final String OPT_SELECT_TASK = "-Select Task ID-";
-        private static final String OPT_REFRESH = "-Refresh-";
 
         private void onRefresh() {
             ServiceManager.getService(MediatorService.class).reloadData();
