@@ -1,41 +1,47 @@
 <idea-plugin version="2">
-  <id>com.gmail.pickl.christoph.messageproposer</id>
-  <name>Message Proposer</name>
-  <version>1.0</version>
-  <vendor email="christoph.pickl@gmail.com" url="https://github.com/christophpickl/message-proposer">Christoph Pickl</vendor>
+    <id>com.gmail.pickl.christoph.messageproposer</id>
+    <name>Message Proposer</name>
+    <version>1.0</version>
+    <vendor email="christoph.pickl@gmail.com" url="https://github.com/christophpickl/message-proposer">Christoph Pickl
+    </vendor>
+    <vendor>JetBrains</vendor>
 
-
-  <description><![CDATA[
+    <description><![CDATA[
       IntelliJ plugin to propose a commit message prefix based on assigned issues.<br>
       Right now only <em>JIRA</em> is supported.
     ]]></description>
 
-  <change-notes><![CDATA[
+    <change-notes><![CDATA[
       None yet.
     ]]>
-  </change-notes>
+    </change-notes>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="141.0"/>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="141.0"/>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
-  <depends>com.intellij.tasks</depends>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+    <depends>com.intellij.tasks</depends>
 
     <!-- see: http://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_extensions_and_extension_points.html -->
-  <extensions defaultExtensionNs="com.intellij">
+    <extensions defaultExtensionNs="com.intellij">
 
-      <checkinHandlerFactory implementation="com.gmail.pickl.christoph.messageproposer.MessageProposerCheckinHandlerFactory"/>
-      <editChangelistSupport implementation="com.gmail.pickl.christoph.messageproposer.MessageProposerEditChangelistSupport" />
+        <!-- settings dialog -->
+        <applicationConfigurable instance="com.gmail.pickl.christoph.messageproposer.MessageProposerSettings"/>
 
-      <applicationService serviceInterface="com.gmail.pickl.christoph.messageproposer.MediatorService"
-                          serviceImplementation="com.gmail.pickl.christoph.messageproposer.MediatorService" />
+        <!-- commit dialog -->
+        <checkinHandlerFactory implementation="com.gmail.pickl.christoph.messageproposer.MessageProposerCheckinHandlerFactory"/>
+        <editChangelistSupport implementation="com.gmail.pickl.christoph.messageproposer.MessageProposerEditChangelistSupport"/>
 
-  </extensions>
+        <!-- core service, application lifetime -->
+        <applicationService serviceInterface="com.gmail.pickl.christoph.messageproposer.MediatorService"
+                            serviceImplementation="com.gmail.pickl.christoph.messageproposer.MediatorService"/>
 
-  <actions>
-  </actions>
+    </extensions>
+
+    <actions>
+    </actions>
 
 </idea-plugin>
