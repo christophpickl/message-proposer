@@ -1,5 +1,6 @@
-package com.gmail.pickl.christoph.messageproposer;
+package com.gmail.pickl.christoph.messageproposer.commit;
 
+import com.gmail.pickl.christoph.messageproposer.MediatorService;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.vcs.changes.LocalChangeList;

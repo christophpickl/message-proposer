@@ -1,6 +1,7 @@
 
 
 
+http://www.jetbrains.org/intellij/sdk/docs/basics/persisting_state_of_components.html
 https://confluence.jetbrains.com/display/IDEADEV/Customizing+the+IDEA+Settings+Dialog
 
 This REST API version is used in JIRA 5.1.8 and above (including JIRA 6.x.x).

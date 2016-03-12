@@ -29,14 +29,19 @@
     <extensions defaultExtensionNs="com.intellij">
 
         <!-- settings dialog -->
-        <applicationConfigurable instance="com.gmail.pickl.christoph.messageproposer.MessageProposerSettings"/>
+        <applicationConfigurable instance="com.gmail.pickl.christoph.messageproposer.settings.MessageProposerConfigurable"/>
+
+        <applicationService serviceImplementation="com.gmail.pickl.christoph.messageproposer.settings.MessageProposerSettings"/>
+
+        <!--<projectService serviceInterface     ="com.gmail.pickl.christoph.messageproposer.settings.MessageProposerSettings"-->
+                        <!--serviceImplementation="com.gmail.pickl.christoph.messageproposer.settings.MessageProposerSettings" />-->
 
         <!-- commit dialog -->
-        <checkinHandlerFactory implementation="com.gmail.pickl.christoph.messageproposer.MessageProposerCheckinHandlerFactory"/>
-        <editChangelistSupport implementation="com.gmail.pickl.christoph.messageproposer.MessageProposerEditChangelistSupport"/>
+        <checkinHandlerFactory implementation="com.gmail.pickl.christoph.messageproposer.commit.MessageProposerCheckinHandlerFactory"/>
+        <editChangelistSupport implementation="com.gmail.pickl.christoph.messageproposer.commit.MessageProposerEditChangelistSupport"/>
 
         <!-- core service, application lifetime -->
-        <applicationService serviceInterface="com.gmail.pickl.christoph.messageproposer.MediatorService"
+        <applicationService serviceInterface     ="com.gmail.pickl.christoph.messageproposer.MediatorService"
                             serviceImplementation="com.gmail.pickl.christoph.messageproposer.MediatorService"/>
 
     </extensions>
